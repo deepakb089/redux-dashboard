@@ -26,7 +26,7 @@ class Login extends React.Component {
 
                 <div className="">
                     <div className="row">
-                        <div className="col-md-4 offset-md-4">
+                        <div className="col-md-6 offset-md-4">
                             <div className="panel panel-default">
                                 <h1 className="text-center">Login</h1>
 

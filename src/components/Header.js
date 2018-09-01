@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {LOGOUT} from "../actions/actionTypes";
 import {logout} from "../actions/actions";
+import {Route} from 'react-router-dom'
 
 
 class Header extends React.Component {
@@ -31,27 +32,27 @@ class Header extends React.Component {
                             <li className="nav-item active">
                                 <Link to={"/"} className={"nav-link"}>Home</Link>
                             </li>
+
+
+
+                            <DashboardButton login={this.props.login} />
+
+
                             <li className="nav-item">
 
-                                {this.loginButton()}
+
+                                <LoginButton login={this.props.login}
+                                             logout={this.props.logout}/>
 
                             </li>
-                            <li className="nav-item">
-                                <a className="nav-link disabled" href="#">Disabled</a>
-                            </li>
-                            <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" href="https://example.com" id="dropdown01"
-                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                                <div className="dropdown-menu" aria-labelledby="dropdown01">
-                                    <a className="dropdown-item" href="#">Action</a>
-                                    <a className="dropdown-item" href="#">Another action</a>
-                                    <a className="dropdown-item" href="#">Something else here</a>
-                                </div>
-                            </li>
+
+                            <RegisterButton login={this.props.login}/>
+
+
                         </ul>
 
                         <a href="">
-                            {this.userNote()}
+                            <UserWelcome login={this.props.login} user={this.props.user}/>
                         </a>
 
                     </div>
@@ -67,26 +68,44 @@ class Header extends React.Component {
         )
     }
 
-    loginButton() {
-        if (this.props.login) {
-            return <a href="#" onClick={this.logout} className={"nav-link"}>Logout</a>
-        } else {
-            return <Link to={"/login"} className={"nav-link"}>Login</Link>
-        }
-    }
 
     logout() {
         this.props.logout()
     }
 
-    userNote() {
-        if (this.props.login) {
-            return <span>Welcome! {this.props.user}</span>
-        } else {
-            return <span>Welcome! Guest</span>
-        }
-    }
 
+}
+
+const DashboardButton = (props) => (
+    props.login ?  <li className="nav-item">
+        <Link to={"/dashboard"} className={"nav-link"}>Dashboard</Link>
+    </li> : ""
+)
+
+function LoginButton(props) {
+    if (props.login) {
+        return <a href="#" onClick={props.logout} className={"nav-link"}>Logout</a>
+    } else {
+        return <Link to={"/login"} className={"nav-link"}>Login</Link>
+    }
+}
+
+function UserWelcome(props) {
+    if (props.login) {
+        return <span>Welcome! {props.user}</span>
+    } else {
+        return <span>Welcome! Guest</span>
+    }
+}
+
+function RegisterButton(props) {
+    if (!props.login) {
+        return (<li>
+            <Link to={"/Register"} className={"nav-link"}>Register</Link>
+        </li>)
+    } else {
+        return ""
+    }
 }
 
 const mapStateToProps = (state) => {
