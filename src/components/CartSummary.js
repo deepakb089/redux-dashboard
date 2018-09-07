@@ -4,7 +4,7 @@ import connect from "react-redux/es/connect/connect";
 const CartSummary = (props) => {
     return (
         <div>
-            Products in cart: {props.cart.products.length} | <a href="/cart">Cart</a>
+            Products in cart: {props.cart.products.length} | Total Amount: ${props.cart.total}  | <a href="/cart">Cart</a>
         </div>
     )
 }

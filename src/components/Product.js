@@ -1,6 +1,7 @@
 import React from 'react'
 import {cartAdd} from "../actions/actions";
 import {connect} from 'react-redux'
+import _ from 'lodash'
 
 
 class Product extends React.Component {
@@ -25,11 +26,11 @@ class Product extends React.Component {
                         <div className="row">
                             <div className="col-xs-12 col-md-6">
                                 <p className="lead">
-                                   $ {this.props.item.price}</p>
+                                    $ {this.props.item.price}</p>
                             </div>
                             <div className="col-xs-12 col-md-6">
 
-                                <input type="button" value={'Add to cart'}
+                                <input type="button" value={this.isAdded() ? "Added!" : "Add to cart"}
                                        className={'btn btn-success'}
                                        onClick={this.add}
                                 />
@@ -46,6 +47,14 @@ class Product extends React.Component {
         this.props.add(this.props.item)
     }
 
+    isAdded() {
+        let index = _.findIndex(this.props.cart.products, (item) => {
+            return item.product.id == this.props.item.id
+        })
+
+        return index !== -1 ? true : false
+    }
+
 
 }
 
@@ -57,10 +66,10 @@ const mapDispatchToProps = dispatch => {
 
 const mapPropsToState = (state) => {
     return {
-
+        cart: state.cart
     }
 }
 
-const component = connect(mapPropsToState, mapDispatchToProps) (Product)
+const component = connect(mapPropsToState, mapDispatchToProps)(Product)
 export default component
 

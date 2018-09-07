@@ -2,7 +2,8 @@ import * as actions from '../actions/actionTypes'
 import _ from 'lodash'
 
 const initial = {
-    products: []
+    products: [],
+    total: 0
 }
 
 const cartReducer = (state = initial, action) => {
@@ -12,6 +13,9 @@ const cartReducer = (state = initial, action) => {
         case actions.CART_ADD:
             return addToCart(state, action.payload)
 
+        case actions.CART_REMOVE:
+            return removeProduct(state, action.payload)
+
 
         default:
             return state
@@ -20,9 +24,20 @@ const cartReducer = (state = initial, action) => {
 
 }
 
-const addToCart = (state, payload) => {
+const removeProduct = (state, payload) => {
+    let cart = state.products
+    let finalCart = _.remove(cart, (item) => {
+        return item.product.id != payload.productId
+    })
 
-    //   console.log(state)
+    return {
+        ...state,
+        products: finalCart,
+        total: getTotal(finalCart)
+    }
+}
+
+const addToCart = (state, payload) => {
 
     var currentCart = state.products
     var product = payload.product
@@ -42,9 +57,17 @@ const addToCart = (state, payload) => {
 
     return {
         ...state,
-        products: currentCart
+        products: currentCart,
+        total: getTotal(currentCart)
     }
 
+}
+
+const getTotal = products => {
+    let total = _.sumBy(products, (item) => {
+        return item.product.price * item.qty
+    })
+    return total
 }
 
 export default cartReducer

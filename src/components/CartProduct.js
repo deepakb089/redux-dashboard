@@ -1,11 +1,12 @@
 import React from 'react'
 import connect from "react-redux/es/connect/connect";
+import {cartRemove} from "../actions/actions";
 
 class CartProduct extends React.Component {
 
     constructor(props) {
         super(props);
-
+        this.remove = this.remove.bind(this)
     }
 
     render() {
@@ -28,11 +29,15 @@ class CartProduct extends React.Component {
                 </td>
                 <td data-th="Subtotal" className="text-center">1.99</td>
                 <td className="actions" data-th="">
-                    <button className="btn btn-info btn-sm"><i className="fa fa-refresh"></i></button>
-                    <button className="btn btn-danger btn-sm"><i className="fa fa-trash-o"></i></button>
+
+                    <button className="btn btn-danger btn-sm" onClick={this.remove}> Remove </button>
                 </td>
             </tr>
         )
+    }
+
+    remove() {
+        this.props.remove(this.props.item.product.id)
     }
 
 }
@@ -40,7 +45,7 @@ class CartProduct extends React.Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-
+        remove: (productId) => dispatch(cartRemove(productId))
     }
 }
 

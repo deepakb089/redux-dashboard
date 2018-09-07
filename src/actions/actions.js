@@ -6,7 +6,7 @@ import {
     REGISTER_ATTEMPT,
     REGISTER_FAILED,
     REGISTER_SUCCESS,
-    CART_ADD
+    CART_ADD, CART_REMOVE
 } from './actionTypes'
 
 export const login = (user) => ({
@@ -52,5 +52,12 @@ export const cartAdd = (product) => ({
     type: CART_ADD,
     payload: {
         product: product
+    }
+})
+
+export const cartRemove = (productId) => ({
+    type: CART_REMOVE,
+    payload: {
+        productId: productId
     }
 })

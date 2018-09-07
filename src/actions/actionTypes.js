@@ -11,3 +11,4 @@ export const DEPOSIT_SUCCESS = 'deposit_success'
 export const DEPOSIT_FAILED = 'deposit_failed'
 
 export const CART_ADD = 'cart_add'
+export const CART_REMOVE = 'cart_remove'
