@@ -1,24 +1,14 @@
-import {createStore,applyMiddleware,combineReducers} from 'redux'
-import rootReducer from '../reducers/index'
-import authReducer from '../reducers/authReducer'
-
-
+import {createStore,applyMiddleware} from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import {saveState, loadState} from "../util";
-
+import reducer from '../reducers'
 
 import saga from '../sagas';
 
 const sagaMiddleware = createSagaMiddleware()
 const preloadedState = loadState()
+const store = createStore(reducer, preloadedState, applyMiddleware(sagaMiddleware))
 
-const finalReducer = combineReducers({
-    default: rootReducer,
-    auth: authReducer
-})
-
-
-const store = createStore(finalReducer, preloadedState, applyMiddleware(sagaMiddleware))
 store.subscribe(() => {
 
     const state = store.getState()

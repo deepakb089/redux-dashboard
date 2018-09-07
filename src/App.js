@@ -10,6 +10,7 @@ import Signup from "./components/Signup";
 import Dashboard from "./components/Dashboard";
 import DepositComponent from "./components/Deposit";
 import SampleComponent from "./components/Sample";
+import Cart from './components/Cart'
 
 class App extends Component {
 
@@ -30,6 +31,8 @@ class App extends Component {
                     <Route path="/dashboard" component={Dashboard} />
                     <Route path="/deposit" component={DepositComponent} />
                     <Route path="/sample/:name?" component={SampleComponent} />
+                    <Route path="/cart" component={Cart} />
+
                     <Route path="/" component={Home}/>
 
                 </Switch>

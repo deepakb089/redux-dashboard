@@ -5,7 +5,8 @@ import {
     LOGOUT,
     REGISTER_ATTEMPT,
     REGISTER_FAILED,
-    REGISTER_SUCCESS
+    REGISTER_SUCCESS,
+    CART_ADD
 } from './actionTypes'
 
 export const login = (user) => ({
@@ -45,4 +46,11 @@ export const depositSuccess = (result) => ({
 export const depositFailed = (result) => ({
     type: DEPOSIT_FAILED,
     payload: result
+})
+
+export const cartAdd = (product) => ({
+    type: CART_ADD,
+    payload: {
+        product: product
+    }
 })
